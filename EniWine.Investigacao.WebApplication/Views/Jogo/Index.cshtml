@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Jogo</h2>
+
+<div class="form-group">
+    O empresário Sean Bean foi assassinado e o corpo dele foi deixado na frente da delegacia de polícia. O Inspetor Jacques Clouseau foi escolhido para investigar este caso. Após uma série de investigações, ele organizou uma lista com prováveis assassinos, os locais do crime e quais armas poderiam ter sido utilizadas. 
+</div>
+
+<form action="/Jogo/Verificar" method="post" name="form">
+    
+    <div class="form-group">
+        <label for="lblSuspeito">Suspeito</label>
+        @Html.DropDownList("Suspeito", (IEnumerable<SelectListItem>)ViewBag.Suspeitos, new { id = "Id", @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label for="lblSuspeito">Local</label>
+        @Html.DropDownList("Local", (IEnumerable<SelectListItem>)ViewBag.Locais, new { id = "Id", @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label for="lblArma">Arma</label>
+        @Html.DropDownList("Arma", (IEnumerable<SelectListItem>)ViewBag.Armas, new { id = "Id", @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Verificar Teoria</button>    
+    </div>
+
+    <div class="form-group">
+        @if (@ViewBag.Resultado == 0)
+        {
+            <h1><span class="label label-success">@ViewBag.Mensagem</span></h1>
+        }
+        else {
+            <h1><span class="label label-danger">@ViewBag.Mensagem</span></h1>
+        }
+</div>
+</form>
+

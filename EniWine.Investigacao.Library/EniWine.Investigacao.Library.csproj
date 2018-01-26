@@ -68,12 +68,6 @@
     <Compile Include="Services\SuspeitoService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EniWine.Investigacao.WebApplication\EniWine.Investigacao.WebApplication.csproj">
-      <Project>{ECC51A91-36E5-40CF-92FB-9857E3F4BAF0}</Project>
-      <Name>EniWine.Investigacao.WebApplication</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
