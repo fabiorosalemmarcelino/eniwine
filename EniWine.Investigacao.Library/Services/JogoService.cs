@@ -9,13 +9,11 @@ namespace EniWine.Investigacao.Library.Services
 {
     public class JogoService
     {
-        protected Crime _crime;
+        public Crime Crime { get; set; }
 
-        public JogoService()
+        public JogoService(Crime crime)
         {
-            CrimeService service = new CrimeService();
-
-            this._crime = service.Sortear();
+            this.Crime = crime;
         }
         /// <summary>
         /// Verifica se uma determinada teoria desvendou o crime
@@ -32,13 +30,13 @@ namespace EniWine.Investigacao.Library.Services
         public int VerificarTeoria(int suspeito, int arma, int local) {
             try{
 
-                if (suspeito != this._crime.Suspeito.Id)
+                if (suspeito != this.Crime.Suspeito.Id)
                     return 1;
 
-                if (local != this._crime.Local.Id)
+                if (local != this.Crime.Local.Id)
                     return 2;
 
-                if (arma != this._crime.Arma.Id)
+                if (arma != this.Crime.Arma.Id)
                     return 3;
 
                 return 0;

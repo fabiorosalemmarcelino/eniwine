@@ -1,4 +1,5 @@
-﻿using EniWine.Investigacao.Library.Services;
+﻿using EniWine.Investigacao.Library.Model;
+using EniWine.Investigacao.Library.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,7 @@ namespace EniWine.Investigacao.WebApplication.Controllers
 {
     public class JogoController : Controller
     {
-
-        protected void BindDropDownList()
+        protected void CarregarDropDownList()
         {
             SuspeitoService suspeitoService = new SuspeitoService();
             LocalService localService = new LocalService();
@@ -21,9 +21,17 @@ namespace EniWine.Investigacao.WebApplication.Controllers
             ViewBag.Armas = new SelectList(armaService.List(), "Id", "Nome");
         }
 
+        protected void SortearCrime()
+        {
+            CrimeService crimeService = new CrimeService();
+            Session["Crime"] = crimeService.Sortear();
+        }
+
         public ActionResult Index()
         {
-            this.BindDropDownList();
+            this.SortearCrime();
+
+            this.CarregarDropDownList();
 
             return View();
         }
@@ -33,11 +41,15 @@ namespace EniWine.Investigacao.WebApplication.Controllers
         {
             try
             {
+                Crime crimeSorteado = (Crime)Session["Crime"];
+
+                //ViewBag.CrimeSorteado = String.Concat(crimeSorteado.Suspeito.Nome, "-", crimeSorteado.Local.Nome, "-", crimeSorteado.Arma.Nome);
+
                 int suspeito = int.Parse(collection["Suspeito"]);
                 int arma = int.Parse(collection["Arma"]);
                 int local = int.Parse(collection["Local"]);
 
-                JogoService service = new JogoService();
+                JogoService service = new JogoService((Crime)Session["Crime"]);
                 int resultado = service.VerificarTeoria(suspeito, arma, local);
 
                 switch (resultado)
@@ -52,18 +64,23 @@ namespace EniWine.Investigacao.WebApplication.Controllers
                         ViewBag.Mensagem = "A arma está incorreta";
                         break;
                     default:
-                        ViewBag.Mensagem = "Você solucionou o caso";
-                        break;
+                        return RedirectToAction("CasoSolucionado");                        
                 }
 
                 ViewBag.Resultado = resultado;
-                this.BindDropDownList();
+
+                this.CarregarDropDownList();
 
                 return View("Index");
             }
             catch{
                 return RedirectToAction("Index");
             }
+        }
+
+        public ActionResult CasoSolucionado()
+        {
+            return View();
         }
     }        
 }
