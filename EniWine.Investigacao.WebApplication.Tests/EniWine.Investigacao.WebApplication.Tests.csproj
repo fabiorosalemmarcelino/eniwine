@@ -98,6 +98,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Services\ArmaServiceTests.cs" />
+    <Compile Include="Services\CrimeServiceTests.cs" />
     <Compile Include="Services\LocalServiceTests.cs" />
     <Compile Include="Services\SuspeitoServiceTests.cs" />
   </ItemGroup>
