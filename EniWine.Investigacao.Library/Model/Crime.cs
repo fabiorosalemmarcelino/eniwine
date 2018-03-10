@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EniWine.Investigacao.Library.Model
 {
-    public class Crime
+    public class Crime 
     {
         public Suspeito Suspeito { get; set; }
         public Arma Arma { get; set; }
